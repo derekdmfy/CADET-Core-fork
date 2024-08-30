@@ -131,7 +131,7 @@ namespace cadet
 						continue;
 
 					// Residual
-					res[bndIdx] = static_cast<ParamType>(p->a0[i]) * exp(-static_cast<ParamType>(p->ss[i]) * yCp[0]) * exp(static_cast<ParamType>(p->ct[i]) * 1000 * (1 / static_cast<ParamType>(p->T[i]) - 1 / 298.15)) * yCp[i];
+					res[bndIdx] = 1e16 * (y[bndIdx] - static_cast<ParamType>(p->a0[i]) * exp(-static_cast<ParamType>(p->ss[i]) * yCp[0]) * exp(static_cast<ParamType>(p->ct[i]) * 1000 * (1 / static_cast<ParamType>(p->T[i]) - 1 / 298.15)) * yCp[i]);
 
 					// Next bound component
 					++bndIdx;
