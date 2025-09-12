@@ -45,7 +45,7 @@
  kkin = Linear driving force
  a0 = Henry Coefficient of component in pure water
  ss = Solvent strength parameter
- ct = Undefined
+ ct = Temperature coefficient
  T = Temperature
 
  q = a0 * exp(-ss * phi) * exp(ct * 1000 * (1/T - 1/Tref))
@@ -80,7 +80,7 @@ namespace cadet
 		inline bool ExtLinearLSSParamHandler::validateConfig(unsigned int nComp, unsigned int const* nBoundStates)
 		{
 			if ((_a0.size() != _ss.size()) || (_a0.size() != _ct.size()) || (_a0.size() != _T.size()) || (_a0.size() != _kkin.size()) || (_a0.size() < nComp))
-				throw InvalidParameterException("LINLSS_KKIN, LINLSS_A0, LINLSS_SS, LINLSS_CT, and LINLSS_T have to have the same size");
+				throw InvalidParameterException("EXT_LINLSS_KKIN, EXT_LINLSS_A0, EXT_LINLSS_SS, EXT_LINLSS_CT, and EXT_LINLSS_T have to have the same size");
 
 			return true;
 		}
@@ -123,7 +123,9 @@ namespace cadet
 
 					// Residual
 					res[bndIdx] = static_cast<ParamType>(p->kkin[i]) * (y[bndIdx] - static_cast<ParamType>(p->a0[i]) * exp(-static_cast<ParamType>(p->ss[i]) * yCp[0]) * exp(static_cast<ParamType>(p->ct[i]) * 1000 * (1 / static_cast<ParamType>(p->T[i]) - 1 / 298.15)) * yCp[i]);
-					// res[bndIdx] = -static_cast<ParamType>(p->a0[i]) * yCp[i] + static_cast<ParamType>(p->ss[i]) * y[bndIdx];
+					// res = kkin * (q - a0 * exp(-ss * phi) * exp(ct * 1000 * (1/T - 1/298.15) * C)
+					// y: solid phase concentration
+					// yCp: liquid phase concentration
 
 					// Next bound component
 					++bndIdx;

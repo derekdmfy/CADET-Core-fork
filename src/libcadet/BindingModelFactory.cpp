@@ -46,6 +46,7 @@ namespace cadet
 			void registerHICWaterOnHydrophobicSurfacesModel(std::unordered_map<std::string, std::function<model::IBindingModel*()>>& bindings);
 			void registerHICConstantWaterActivityModel(std::unordered_map<std::string, std::function<model::IBindingModel*()>>& bindings);
 			void registerLinearLSSModel(std::unordered_map<std::string, std::function<model::IBindingModel* ()>>& bindings);
+			void registerLangmuirLSSModel(std::unordered_map<std::string, std::function<model::IBindingModel* ()>>& bindings);
 		}
 	}
 
@@ -77,6 +78,7 @@ namespace cadet
 		model::binding::registerHICWaterOnHydrophobicSurfacesModel(_bindingModels);
 		model::binding::registerHICConstantWaterActivityModel(_bindingModels);
 		model::binding::registerLinearLSSModel(_bindingModels);
+		model::binding::registerLangmuirLSSModel(_bindingModels);
 		registerModel<model::SimplifiedMultiStateStericMassActionBinding>();
 	}
 
